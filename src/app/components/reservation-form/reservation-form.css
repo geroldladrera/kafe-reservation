@@ -1,0 +1,80 @@
+.reservation-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  
+  .reservation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .time-slot {
+    display: inline-block;
+    margin: 5px 10px;
+  }
+
+  .time-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .time-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .time-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .time-picker button {
+    min-width: 80px;
+  }
+  
+  .time-picker button.selected-slot {
+    background-color: #3f51b5;
+    color: white;
+    border: 1px solid #3f51b5;
+  }
+  
+  .time-picker button:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+  }
+
+  .success-snackbar {
+    background-color: #4caf50; /* Green success color */
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .time-label span {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  

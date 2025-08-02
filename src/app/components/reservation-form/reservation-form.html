@@ -1,0 +1,143 @@
+<div class="reservation-container">
+  <h1 class="title">Kafè Reservation</h1>
+  <form
+    (ngSubmit)="onSubmit()"
+    #reservationForm="ngForm"
+    class="reservation-form"
+  >
+    <!-- Date -->
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="reservation.date"
+        name="date"
+        [min]="minDate"
+        [max]="maxDate"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Time -->
+    <label class="time-label">Select Time:</label>
+    <span *ngIf="reservation.date">
+      ({{ getAvailableSlotsCount() }} slots available)
+    </span>
+    <div class="time-picker">
+      <button
+        mat-stroked-button
+        type="button"
+        *ngFor="let slot of timeSlots"
+        [disabled]="isSlotUnavailable(slot)"
+        [ngClass]="{ 'selected-slot': reservation.time === slot }"
+        (click)="reservation.time = slot"
+      >
+        {{ slot }}
+      </button>
+    </div>
+
+    <!-- Party Size -->
+    <mat-form-field appearance="fill">
+      <mat-label>Party Size</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="reservation.partySize"
+        name="partySize"
+        min="1"
+        max="12"
+        required
+        (ngModelChange)="validateConstraints()"
+      />
+    </mat-form-field>
+
+    <!-- Region -->
+    <mat-form-field appearance="fill">
+      <mat-label>Region</mat-label>
+      <mat-select
+        [(ngModel)]="reservation.region"
+        name="region"
+        required
+        (selectionChange)="onRegionChange()"
+      >
+        <mat-option *ngFor="let r of regions" [value]="r.name">{{
+          r.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Children -->
+    <mat-checkbox
+      [(ngModel)]="reservation.hasChildren"
+      name="hasChildren"
+      (ngModelChange)="validateConstraints()"
+    >
+      Children in Party
+    </mat-checkbox>
+
+    <!-- Smoking -->
+    <mat-checkbox
+      [(ngModel)]="reservation.smoking"
+      name="smoking"
+      (ngModelChange)="validateConstraints()"
+    >
+      Smoking
+    </mat-checkbox>
+
+    <!-- Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="reservation.name"
+        name="name"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        [(ngModel)]="reservation.email"
+        name="email"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input
+        matInput
+        type="tel"
+        [(ngModel)]="reservation.phone"
+        name="phone"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Submit -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="
+        !reservationForm.form.valid || !reservation.time || errorMessage !== ''
+      "
+    >
+      Reserve
+    </button>
+  </form>
+</div>
